@@ -1,5 +1,5 @@
 # NotifyFlow – WordPress Notification Plugin
-
+![NotifyFlow – WordPress Notification Plugin](screenshot.png)
 **NotifyFlow** is an extensible WordPress notification plugin that adds an on-site notification center for registered users. It helps websites improve user engagement with comment and reply notifications, @username mentions, animated post reactions, author and topic follows, unread notification counts, and customizable notification preferences.
 
 Designed for WordPress websites that need an integrated activity feed, NotifyFlow keeps notifications within your site without requiring a mandatory third-party notification service.
