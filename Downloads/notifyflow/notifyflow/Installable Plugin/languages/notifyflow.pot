@@ -1,0 +1,386 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NotifyFlow 1.0.0\n"
+"Report-Msgid-Bugs-To: https://amardue.xyz/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "%1$s and %2$d others reacted with %3$s %4$s to your post."
+msgstr ""
+
+msgid "%1$s and 1 other reacted with %2$s %3$s to your post."
+msgstr ""
+
+msgid "%1$s reacted with %2$s %3$s to your post."
+msgstr ""
+
+msgid "%d d ago"
+msgstr ""
+
+msgid "%d h ago"
+msgstr ""
+
+msgid "%d m ago"
+msgstr ""
+
+msgid "%d unread"
+msgstr ""
+
+msgid "%s commented on your post."
+msgstr ""
+
+msgid "%s mentioned you in a comment."
+msgstr ""
+
+msgid "%s replied to a discussion on your post."
+msgstr ""
+
+msgid "%s replied to your comment."
+msgstr ""
+
+msgid "%s shared an update with you."
+msgstr ""
+
+msgid "0 keeps notifications indefinitely. Otherwise, a daily task deletes up to 5,000 expired rows per run."
+msgstr ""
+
+msgid "A valid recipient, actor, object, and published post are required."
+msgstr ""
+
+msgid "Accent color"
+msgstr ""
+
+msgid "Actor"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "All notifications marked as read."
+msgstr ""
+
+msgid "Angry"
+msgstr ""
+
+msgid "Authors"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Care"
+msgstr ""
+
+msgid "Celebrate"
+msgstr ""
+
+msgid "Close notifications"
+msgstr ""
+
+msgid "Comment replies"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Configure appearance, features, and notification retention."
+msgstr ""
+
+msgid "Could not load notifications. Please try again."
+msgstr ""
+
+msgid "Could not load preferences."
+msgstr ""
+
+msgid "Could not save preferences. Please try again."
+msgstr ""
+
+msgid "Could not save your reaction."
+msgstr ""
+
+msgid "Could not save your reaction. Please try again."
+msgstr ""
+
+msgid "Could not update follow preference."
+msgstr ""
+
+msgid "Could not update notifications."
+msgstr ""
+
+msgid "Could not update the notification."
+msgstr ""
+
+msgid "Could not update this follow."
+msgstr ""
+
+msgid "Created at (UTC)"
+msgstr ""
+
+msgid "Cry"
+msgstr ""
+
+msgid "Custom activity"
+msgstr ""
+
+msgid "Data and privacy"
+msgstr ""
+
+msgid "Database table"
+msgstr ""
+
+msgid "Delete all NotifyFlow data when the plugin is uninstalled"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Enable author/topic follows"
+msgstr ""
+
+msgid "Enable post reactions"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Features"
+msgstr ""
+
+msgid "Filter notifications"
+msgstr ""
+
+msgid "Follow author"
+msgstr ""
+
+msgid "Follow relationship"
+msgstr ""
+
+msgid "Follow removed."
+msgstr ""
+
+msgid "Follow saved."
+msgstr ""
+
+msgid "Follow type"
+msgstr ""
+
+msgid "Follow: "
+msgstr ""
+
+msgid "Followed authors and topics"
+msgstr ""
+
+msgid "Followed by a user"
+msgstr ""
+
+msgid "Following a target"
+msgstr ""
+
+msgid "Following author"
+msgstr ""
+
+msgid "Following: "
+msgstr ""
+
+msgid "Follows are disabled."
+msgstr ""
+
+msgid "Haha"
+msgstr ""
+
+msgid "Invalid follow target."
+msgstr ""
+
+msgid "Just now"
+msgstr ""
+
+msgid "Like"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "Load more"
+msgstr ""
+
+msgid "Loading notifications…"
+msgstr ""
+
+msgid "Love"
+msgstr ""
+
+msgid "Mark all as read"
+msgstr ""
+
+msgid "Mentions"
+msgstr ""
+
+msgid "New activity"
+msgstr ""
+
+msgid "New post from %s you follow."
+msgstr ""
+
+msgid "New post in a topic you follow: %s."
+msgstr ""
+
+msgid "Not found"
+msgstr ""
+
+msgid "Notification preferences"
+msgstr ""
+
+msgid "Notification type"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "NotifyFlow"
+msgstr ""
+
+msgid "NotifyFlow activity"
+msgstr ""
+
+msgid "NotifyFlow stores on-site notification records, reactions, followed authors/topics, and per-user notification preferences in this WordPress site database. It does not send this data to an external NotifyFlow server and uses local initials rather than requesting Gravatar images from a third party."
+msgstr ""
+
+msgid "Open discussion"
+msgstr ""
+
+msgid "Panel width (px)"
+msgstr ""
+
+msgid "Plugin version"
+msgstr ""
+
+msgid "Post ID"
+msgstr ""
+
+msgid "Post comments"
+msgstr ""
+
+msgid "Posts from followed authors"
+msgstr ""
+
+msgid "Posts in followed topics"
+msgstr ""
+
+msgid "Preferences"
+msgstr ""
+
+msgid "Preferences saved."
+msgstr ""
+
+msgid "Reaction"
+msgstr ""
+
+msgid "Reaction removed."
+msgstr ""
+
+msgid "Reaction saved."
+msgstr ""
+
+msgid "Reactions"
+msgstr ""
+
+msgid "Reactions are disabled."
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+msgid "Read status"
+msgstr ""
+
+msgid "Recent activity"
+msgstr ""
+
+msgid "Recipient"
+msgstr ""
+
+msgid "Related post ID"
+msgstr ""
+
+msgid "Relationship to notification"
+msgstr ""
+
+msgid "Replies"
+msgstr ""
+
+msgid "Retention (days)"
+msgstr ""
+
+msgid "Save settings"
+msgstr ""
+
+msgid "Saving…"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Shortcodes"
+msgstr ""
+
+msgid "Site administrators can configure notification retention and choose whether plugin data is deleted during uninstall. WordPress personal data export and erasure tools include NotifyFlow data associated with a user."
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Stored notifications"
+msgstr ""
+
+msgid "Target ID"
+msgstr ""
+
+msgid "The notification bell checks for new activity every five seconds while the page is visible. Updates appear without reloading the page."
+msgstr ""
+
+msgid "This is off by default. When enabled, uninstalling the plugin removes NotifyFlow tables, settings, and user preferences. Deactivation never deletes data."
+msgstr ""
+
+msgid "This post cannot be reacted to."
+msgstr ""
+
+msgid "This post is not available for reactions."
+msgstr ""
+
+msgid "This topic does not exist."
+msgstr ""
+
+msgid "Topics"
+msgstr ""
+
+msgid "Unread"
+msgstr ""
+
+msgid "Updates automatically"
+msgstr ""
+
+msgid "You cannot follow this user."
+msgstr ""
+
+msgid "Your latest activity"
+msgstr ""
+
+msgid "You’re all caught up."
+msgstr ""
+
+msgid "follow the current post author or its categories"
+msgstr ""
+
+msgid "like button and count for the current singular post"
+msgstr ""
+
+msgid "notification center"
+msgstr ""
+
+msgid "unread"
+msgstr ""

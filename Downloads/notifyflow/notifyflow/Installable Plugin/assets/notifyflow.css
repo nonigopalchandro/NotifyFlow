@@ -1,0 +1,520 @@
+/*
+ * NotifyFlow CSS Table of Contents
+ * 1. Root and trigger
+ * 2. Notification panel and header
+ * 3. Toolbar, filters, and preferences
+ * 4. Notification feed and items
+ * 5. Toasts and states
+ * 6. Reactions and follows
+ * 7. Responsive and reduced-motion rules
+ */
+[data-notifyflow] {
+	--nf-accent: #635bff;
+	--nf-accent-dark: #4b43df;
+	--nf-text: #171923;
+	--nf-muted: #737789;
+	--nf-border: #e8eaf1;
+	--nf-panel: #ffffff;
+	--nf-soft: #f7f8fc;
+	--nf-shadow: 0 22px 70px rgba(23, 25, 35, .18);
+	position: relative;
+	display: inline-flex;
+	z-index: 999;
+	font-family: inherit;
+	color: var(--nf-text);
+}
+.notifyflow__trigger {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	width: 44px;
+	height: 44px;
+	min-height: 44px;
+	padding: 0;
+	border: 1px solid var(--nf-border);
+	border-radius: 14px;
+	background: var(--nf-panel);
+	color: var(--nf-text);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 650;
+	line-height: 1;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(20, 24, 40, .04);
+	transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.notifyflow__trigger:hover {
+	border-color: #c9c7ff;
+	box-shadow: 0 5px 18px rgba(99, 91, 255, .12);
+	transform: translateY(-1px);
+}
+.notifyflow__trigger:focus-visible,
+.notifyflow__icon-button:focus-visible,
+.notifyflow__text-button:focus-visible,
+.notifyflow__open-link:focus-visible,
+.notifyflow__item:focus-visible {
+	outline: 3px solid rgba(99, 91, 255, .3);
+	outline-offset: 3px;
+}
+.notifyflow__bell-icon {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.7;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.notifyflow__badge {
+	position: absolute;
+	top: -7px;
+	right: -7px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 21px;
+	height: 21px;
+	padding: 0 5px;
+	border: 2px solid var(--nf-panel);
+	border-radius: 999px;
+	background: #ef476f;
+	color: #fff;
+	font-family: Arial, sans-serif;
+	font-size: 10px;
+	font-weight: 800;
+	line-height: 1;
+	box-sizing: border-box;
+}
+.notifyflow__badge[hidden],
+.notifyflow__panel[hidden],
+.notifyflow__toast[hidden] { display: none !important; }
+.notifyflow__panel {
+	position: absolute;
+	top: calc(100% + 12px);
+	right: 0;
+	width: min(var(--nf-panel-width, 390px), calc(100vw - 28px));
+	height: min(600px, calc(100vh - 100px));
+	max-height: min(600px, calc(100vh - 100px));
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid rgba(226, 228, 239, .95);
+	border-radius: 20px;
+	background: var(--nf-panel);
+	box-shadow: var(--nf-shadow);
+	z-index: 99999;
+	text-align: left;
+	animation: notifyflow-enter .18s ease-out;
+}
+[data-notifyflow][data-position="left"] .notifyflow__panel { right: auto; left: 0; }
+.notifyflow__header {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 19px 20px 15px;
+	border-bottom: 1px solid var(--nf-border);
+	background: linear-gradient(135deg, #fff 0%, #fafaff 100%);
+}
+.notifyflow__header h2 {
+	margin: 0;
+	color: var(--nf-text);
+	font-size: 18px;
+	font-weight: 750;
+	letter-spacing: -.025em;
+	line-height: 1.3;
+}
+.notifyflow__header p {
+	margin: 5px 0 0;
+	color: var(--nf-muted);
+	font-size: 12px;
+}
+.notifyflow__icon-button {
+	width: 32px;
+	height: 32px;
+	flex: 0 0 32px;
+	border: 1px solid var(--nf-border);
+	border-radius: 10px;
+	background: #fff;
+	color: #616579;
+	font-size: 22px;
+	line-height: 1;
+	cursor: pointer;
+}
+.notifyflow__toolbar {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 11px 18px;
+	background: #fff;
+	color: var(--nf-muted);
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: .035em;
+	text-transform: uppercase;
+}
+.notifyflow__text-button {
+	padding: 4px 0;
+	border: 0;
+	background: transparent;
+	color: var(--nf-accent);
+	font: inherit;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-transform: none;
+	cursor: pointer;
+}
+.notifyflow__text-button:hover { color: var(--nf-accent-dark); }
+.notifyflow__feed {
+	flex: 1 1 auto;
+	min-height: 0;
+	max-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-gutter: stable;
+	scrollbar-width: thin;
+	padding: 7px 9px 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.notifyflow__feed::-webkit-scrollbar { width: 8px; }
+.notifyflow__feed::-webkit-scrollbar-track { background: transparent; }
+.notifyflow__feed::-webkit-scrollbar-thumb { background: #c8cada; border: 2px solid var(--nf-panel); border-radius: 999px; }
+.notifyflow__feed::-webkit-scrollbar-thumb:hover { background: #9da1b8; }
+.notifyflow__state {
+	padding: 35px 20px;
+	color: var(--nf-muted);
+	font-size: 13px;
+	text-align: center;
+}
+.notifyflow__state--error { color: #b42338; }
+.notifyflow__item {
+	position: relative;
+	color: inherit;
+	text-decoration: none;
+	display: grid;
+	grid-template-columns: 42px minmax(0, 1fr);
+	gap: 11px;
+	align-items: start;
+	padding: 13px 10px 13px 11px;
+	border: 1px solid var(--nf-border, #ececf4);
+	border-radius: 13px;
+	background: #fff;
+	transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.notifyflow__item:hover { background: var(--nf-soft); border-color: #dcdafc; box-shadow: 0 3px 12px rgba(35, 32, 80, .06); text-decoration: none; }
+.notifyflow__item:focus-visible { outline: 3px solid rgba(99, 91, 255, .3); outline-offset: -3px; }
+.notifyflow__item.is-unread { background: #f8f7ff; border-color: #e4e1ff; }
+.notifyflow__item.is-unread:hover { background: #ededff; }
+.notifyflow__avatar-wrap { position: relative; width: 42px; height: 42px; }
+.notifyflow__avatar,
+.notifyflow__avatar-fallback {
+	display: flex;
+	width: 42px;
+	height: 42px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	object-fit: cover;
+	background: #ecebff;
+	color: var(--nf-accent-dark);
+	font-size: 15px;
+	font-weight: 750;
+}
+.notifyflow__item-content { min-width: 0; padding: 1px 2px 0 0; }
+.notifyflow__message {
+	margin: 0;
+	color: #252839;
+	font-size: 12px;
+	font-weight: 550;
+	line-height: 1.55;
+	overflow-wrap: anywhere;
+}
+.notifyflow__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px 8px;
+	margin-top: 5px;
+	color: var(--nf-muted);
+	font-size: 10px;
+	line-height: 1.4;
+}
+.notifyflow__post-title {
+	max-width: 190px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.notifyflow__unread-dot {
+	position: absolute;
+	top: 18px;
+	right: 10px;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--nf-accent);
+}
+.notifyflow__open-link {
+	grid-column: 2;
+	justify-self: start;
+	margin-top: -3px;
+	color: var(--nf-accent);
+	font-size: 10px;
+	font-weight: 700;
+	text-decoration: none;
+}
+.notifyflow__open-link:hover { text-decoration: underline; }
+.notifyflow__footer {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	padding: 12px 19px;
+	border-top: 1px solid var(--nf-border);
+	background: #fcfcff;
+	color: var(--nf-muted);
+	font-size: 10px;
+}
+.notifyflow__live-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #20b486;
+	box-shadow: 0 0 0 3px rgba(32, 180, 134, .12);
+}
+.notifyflow__toast {
+	position: absolute;
+	top: calc(100% + 10px);
+	right: 0;
+	max-width: min(320px, calc(100vw - 28px));
+	padding: 12px 15px;
+	border: 1px solid rgba(255,255,255,.12);
+	border-radius: 12px;
+	background: #202235;
+	color: #fff;
+	font-size: 12px;
+	line-height: 1.45;
+	box-shadow: 0 12px 32px rgba(0,0,0,.18);
+	z-index: 100000;
+}
+@keyframes notifyflow-enter {
+	from { opacity: 0; transform: translateY(-5px) scale(.99); }
+	to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (max-width: 480px) {
+	.notifyflow__trigger { width: 44px; padding: 0; }
+	.notifyflow__panel,
+	[data-notifyflow][data-position="left"] .notifyflow__panel {
+		position: fixed;
+		top: 72px;
+		left: 10px;
+		right: 10px;
+		width: auto;
+		height: calc(100vh - 92px);
+		max-height: calc(100vh - 92px);
+	}
+	.notifyflow__toast { position: fixed; top: 62px; left: 12px; right: 12px; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.notifyflow__trigger,
+	.notifyflow__item { transition: none; }
+	.notifyflow__panel { animation: none; }
+}
+
+/* Notification filters and personal preferences (v0.7.0). */
+.notifyflow__filters {
+	flex: 0 0 auto;
+	display: flex;
+	gap: 5px;
+	padding: 0 14px 12px;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	cursor: grab;
+	user-select: none;
+	border-bottom: 1px solid var(--nf-border);
+	background: #fff;
+}
+.notifyflow__filters::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.notifyflow__filters.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+.notifyflow__filters button {
+	flex: 0 0 auto;
+	padding: 7px 10px;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	background: #f5f6fa;
+	color: #606579;
+	font: inherit;
+	font-size: 11px;
+	font-weight: 650;
+	cursor: pointer;
+}
+.notifyflow__filters button:hover { background: #ededff; color: var(--nf-accent-dark); }
+.notifyflow__filters button.is-active {
+	border-color: #d9d7ff;
+	background: #eeedff;
+	color: var(--nf-accent-dark);
+}
+.notifyflow__preferences {
+	flex: 0 0 auto;
+	display: grid;
+	gap: 10px;
+	padding: 14px 18px;
+	border-bottom: 1px solid var(--nf-border);
+	background: #fafaff;
+	color: var(--nf-text);
+	font-size: 12px;
+}
+.notifyflow__preferences[hidden] { display: none !important; }
+.notifyflow__preferences label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.notifyflow__preferences input { accent-color: var(--nf-accent); }
+.notifyflow__preferences [data-pref-status] { color: var(--nf-muted); font-size: 11px; }
+.notifyflow__load-more {
+	flex: 0 0 auto;
+	display: block;
+	width: calc(100% - 28px);
+	margin: 4px 14px 12px;
+	padding: 10px 12px;
+	border: 1px solid var(--nf-border);
+	border-radius: 11px;
+	background: #fff;
+	color: var(--nf-accent-dark);
+	font: inherit;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.notifyflow__load-more:hover { background: var(--nf-soft); }
+.notifyflow__load-more[hidden] { display: none !important; }
+.notifyflow__filters button:focus-visible,
+.notifyflow__load-more:focus-visible,
+.notifyflow__preferences input:focus-visible {
+	outline: 3px solid rgba(99, 91, 255, .3);
+	outline-offset: 2px;
+}
+
+/* NotifyFlow reactions and follows */
+.notifyflow-reactions,
+.notifyflow-follow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+.notifyflow-reactions button,
+.notifyflow-follow button {
+  appearance: none; border: 1px solid var(--nf-border, #e8eaf1); border-radius: 999px;
+  background: var(--nf-panel, #fff); color: var(--nf-text, #171923); padding: 8px 12px;
+  font: inherit; font-size: 13px; line-height: 1.25; cursor: pointer; transition: background .15s ease, border-color .15s ease;
+}
+.notifyflow-reactions button[aria-pressed="true"],
+.notifyflow-follow button { border-color: var(--nf-accent, #635bff); background: var(--nf-accent, #635bff); color: #fff; font-weight: 600; box-shadow: 0 1px 2px rgba(16, 24, 40, .08); }
+.notifyflow-follow button:hover { filter: brightness(.94); }
+.notifyflow-follow button[aria-pressed="true"] { background: transparent; color: var(--nf-accent, #635bff); border-color: var(--nf-accent, #635bff); }
+.notifyflow-follow button:disabled { opacity: .65; cursor: wait; }
+.notifyflow-follow__category { display: inline-flex; align-items: center; gap: 9px; padding: 8px 10px; border: 1px solid var(--nf-border, #e8eaf1); border-radius: 12px; background: var(--nf-panel, #fff); }
+.notifyflow-follow__category-name { color: var(--nf-text, #171923); font-size: 13px; font-weight: 500; }
+.notifyflow-reactions button:focus-visible,
+.notifyflow-follow button:focus-visible { outline: 3px solid rgba(99,91,255,.3); outline-offset: 2px; }
+.notifyflow-reactions [data-reaction-count] { color: var(--nf-muted, #737789); font-size: 12px; }
+.notifyflow-follow [data-follow-status],
+.notifyflow-reactions [data-reaction-status] { font-size: 12px; color: var(--nf-muted, #737789); }
+
+
+/* v0.9.0: expressive reactions and animated notification reaction badges. */
+.notifyflow-reactions { gap: 7px; }
+.notifyflow-reactions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 7px 11px;
+  transform-origin: center bottom;
+}
+.notifyflow-reactions .notifyflow-reaction-emoji {
+  display: inline-block;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 22px;
+  line-height: 1;
+  transform-origin: 50% 90%;
+}
+.notifyflow-reactions button:hover .notifyflow-reaction-emoji,
+.notifyflow-reactions button:focus-visible .notifyflow-reaction-emoji {
+  animation: notifyflow-reaction-hover .62s ease-in-out infinite alternate;
+}
+.notifyflow-reactions button.is-animating .notifyflow-reaction-emoji {
+  animation: notifyflow-reaction-pop .65s cubic-bezier(.2,.8,.25,1.25) both;
+}
+.notifyflow-reactions button[data-reaction="like"]:hover .notifyflow-reaction-emoji { animation-name: notifyflow-reaction-like; }
+.notifyflow-reactions button[data-reaction="haha"]:hover .notifyflow-reaction-emoji { animation-name: notifyflow-reaction-laugh; }
+.notifyflow-reactions button[data-reaction="angry"]:hover .notifyflow-reaction-emoji { animation-name: notifyflow-reaction-angry; }
+.notifyflow-reactions button[data-reaction="cry"]:hover .notifyflow-reaction-emoji { animation-name: notifyflow-reaction-cry; }
+.notifyflow-reactions button[data-reaction="care"]:hover .notifyflow-reaction-emoji { animation-name: notifyflow-reaction-care; }
+.notifyflow-reactions .notifyflow-reaction-label { font-size: 12px; font-weight: 650; }
+.notifyflow__avatar-wrap { isolation: isolate; }
+.notifyflow__reaction-badge {
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+  z-index: 2;
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(18, 22, 35, .18);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 17px;
+  line-height: 1;
+  animation: notifyflow-reaction-pop .55s cubic-bezier(.2,.8,.25,1.25) both;
+}
+@keyframes notifyflow-reaction-hover {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-4px) scale(1.12); }
+}
+@keyframes notifyflow-reaction-like {
+  0%, 100% { transform: rotate(0) scale(1); }
+  35% { transform: rotate(-18deg) scale(1.18); }
+  70% { transform: rotate(12deg) scale(1.12); }
+}
+@keyframes notifyflow-reaction-laugh {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  25% { transform: rotate(-12deg) translateY(-3px); }
+  50% { transform: rotate(12deg) translateY(0); }
+  75% { transform: rotate(-8deg) translateY(-2px); }
+}
+@keyframes notifyflow-reaction-angry {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-2px) rotate(-8deg); }
+  75% { transform: translateX(2px) rotate(8deg); }
+}
+@keyframes notifyflow-reaction-cry {
+  0%, 100% { transform: translateY(0) scale(1); }
+  45% { transform: translateY(3px) scale(.96); }
+  70% { transform: translateY(-2px) scale(1.04); }
+}
+@keyframes notifyflow-reaction-care {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18) rotate(7deg); }
+}
+@keyframes notifyflow-reaction-pop {
+  0% { opacity: 0; transform: scale(.45) rotate(-12deg); }
+  65% { opacity: 1; transform: scale(1.18) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notifyflow-reactions button:hover .notifyflow-reaction-emoji,
+  .notifyflow-reactions button:focus-visible .notifyflow-reaction-emoji,
+  .notifyflow-reactions button.is-animating .notifyflow-reaction-emoji,
+  .notifyflow__reaction-badge { animation: none !important; }
+}

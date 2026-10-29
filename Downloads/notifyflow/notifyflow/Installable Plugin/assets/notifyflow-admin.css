@@ -1,0 +1,70 @@
+/* NotifyFlow admin dashboard. Scoped to the plugin's settings screen. */
+.notifyflow-admin { max-width: 1440px; margin-right: 24px; color: #202333; }
+.notifyflow-admin * { box-sizing: border-box; }
+.notifyflow-admin__hero { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 22px 0 20px; padding: 30px 34px; overflow: hidden; border: 1px solid #e3e5f2; border-radius: 18px; background: linear-gradient(120deg, #fff 0%, #f5f5ff 58%, #eeedff 100%); box-shadow: 0 8px 26px rgba(30, 33, 65, .045); }
+.notifyflow-admin__hero-copy { position: relative; z-index: 1; max-width: 760px; }
+.notifyflow-admin__eyebrow { display: inline-block; margin-bottom: 9px; color: #6259dc; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+.notifyflow-admin__hero h1 { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 0; color: #1e2031; font-size: clamp(27px, 3vw, 36px); font-weight: 750; letter-spacing: -.035em; line-height: 1.15; }
+.notifyflow-admin__version { display: inline-flex; align-items: center; min-height: 25px; padding: 4px 9px; border: 1px solid #dad8ff; border-radius: 999px; background: #fff; color: #6259dc; font-size: 11px; font-weight: 700; letter-spacing: 0; }
+.notifyflow-admin__hero p { max-width: 650px; margin: 12px 0 0; color: #666b7d; font-size: 14px; line-height: 1.65; }
+.notifyflow-admin__hero-mark { display: grid; flex: 0 0 88px; width: 88px; height: 88px; place-items: center; border: 1px solid rgba(99,91,255,.16); border-radius: 26px; background: rgba(255,255,255,.75); color: #635bff; box-shadow: 0 12px 30px rgba(99,91,255,.12); transform: rotate(5deg); }
+.notifyflow-admin__hero-mark .dashicons { width: 42px; height: 42px; font-size: 42px; }
+.notifyflow-admin__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0 0 20px; }
+.notifyflow-admin__stat-card { display: flex; align-items: center; gap: 15px; min-width: 0; padding: 20px; border: 1px solid #e6e8f0; border-radius: 14px; background: #fff; box-shadow: 0 3px 12px rgba(30,33,65,.025); }
+.notifyflow-admin__stat-icon { display: grid; flex: 0 0 44px; width: 44px; height: 44px; place-items: center; border-radius: 13px; background: #f0efff; color: #635bff; font-size: 22px; }
+.notifyflow-admin__stat-card > div { display: grid; min-width: 0; gap: 3px; }
+.notifyflow-admin__stat-label { color: #717589; font-size: 12px; font-weight: 600; }
+.notifyflow-admin__stat-card strong { overflow-wrap: anywhere; color: #222538; font-size: 21px; font-weight: 750; line-height: 1.25; }
+.notifyflow-admin__stat-card small { color: #9699a8; font-size: 11px; }
+.notifyflow-admin__color-value { display: flex; align-items: center; gap: 8px; font-size: 18px !important; }
+.notifyflow-admin__color-value i { display: inline-block; width: 15px; height: 15px; border: 1px solid rgba(0,0,0,.1); border-radius: 50%; background: var(--nf-admin-color); }
+.notifyflow-admin__form { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(290px, .85fr); align-items: start; gap: 18px; }
+.notifyflow-admin__main, .notifyflow-admin__sidebar { display: grid; gap: 18px; min-width: 0; }
+.notifyflow-admin__card { min-width: 0; padding: 24px; border: 1px solid #e5e7ef; border-radius: 15px; background: #fff; box-shadow: 0 4px 16px rgba(30,33,65,.025); }
+.notifyflow-admin__card-heading { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 22px; }
+.notifyflow-admin__card-heading > .dashicons { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border-radius: 11px; background: #f1f0ff; color: #6259dc; font-size: 20px; }
+.notifyflow-admin__card-heading h2 { margin: 1px 0 5px; color: #222538; font-size: 16px; font-weight: 750; line-height: 1.35; }
+.notifyflow-admin__card-heading p { margin: 0; color: #777b8d; font-size: 12px; line-height: 1.6; }
+.notifyflow-admin__field { padding: 18px 0; border-top: 1px solid #f0f1f6; }
+.notifyflow-admin__field:first-of-type { padding-top: 0; border-top: 0; }
+.notifyflow-admin__field:last-child { padding-bottom: 0; }
+.notifyflow-admin__field > label { display: block; margin-bottom: 10px; color: #303346; font-size: 13px; font-weight: 700; }
+.notifyflow-admin__field input[type="number"] { width: 140px; max-width: 100%; min-height: 39px; border-color: #dfe2ed; border-radius: 8px; box-shadow: none; }
+.notifyflow-admin__field input[type="number"]:focus { border-color: #8179ff; box-shadow: 0 0 0 2px rgba(99,91,255,.12); }
+.notifyflow-admin__color-control { display: flex; align-items: center; gap: 12px; }
+.notifyflow-admin__color-control input[type="color"] { width: 54px; height: 43px; padding: 4px; border: 1px solid #dfe2ed; border-radius: 9px; background: #fff; cursor: pointer; }
+.notifyflow-admin__color-control span { color: #777b8d; font-size: 12px; line-height: 1.5; }
+.notifyflow-admin__input-suffix { display: flex; align-items: center; gap: 10px; }
+.notifyflow-admin__input-suffix > span { color: #777b8d; font-size: 12px; }
+.notifyflow-admin .description { max-width: 620px; margin: 8px 0 0; color: #85899a; font-size: 12px; line-height: 1.65; }
+.notifyflow-admin__toggle { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-top: 1px solid #f0f1f6; cursor: pointer; }
+.notifyflow-admin__toggle:first-of-type { padding-top: 0; border-top: 0; }
+.notifyflow-admin__toggle:last-of-type { padding-bottom: 0; }
+.notifyflow-admin__toggle-copy { display: grid; gap: 5px; }
+.notifyflow-admin__toggle-copy strong { color: #303346; font-size: 13px; font-weight: 700; }
+.notifyflow-admin__toggle-copy small { max-width: 500px; color: #7b7f90; font-size: 12px; font-weight: 400; line-height: 1.6; }
+.notifyflow-admin__toggle input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); clip-path: inset(50%); white-space: nowrap; }
+.notifyflow-admin__switch { position: relative; flex: 0 0 42px; width: 42px; height: 24px; border: 1px solid #d8dbe7; border-radius: 99px; background: #e7e9f0; transition: background .18s ease, border-color .18s ease; }
+.notifyflow-admin__switch:before { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.16); content: ""; transition: transform .18s ease; }
+.notifyflow-admin__toggle input:checked + .notifyflow-admin__switch { border-color: #635bff; background: #635bff; }
+.notifyflow-admin__toggle input:checked + .notifyflow-admin__switch:before { transform: translateX(18px); }
+.notifyflow-admin__toggle input:focus-visible + .notifyflow-admin__switch { outline: 3px solid rgba(99,91,255,.24); outline-offset: 3px; }
+.notifyflow-admin__card--privacy { border-color: #ece6d8; }
+.notifyflow-admin__card--privacy .notifyflow-admin__card-heading > .dashicons { background: #fff6e7; color: #a96b14; }
+.notifyflow-admin__shortcode { display: grid; gap: 6px; padding: 13px 0; border-top: 1px solid #f0f1f6; }
+.notifyflow-admin__shortcode:first-of-type { padding-top: 0; border-top: 0; }
+.notifyflow-admin__shortcode code { display: inline-block; width: fit-content; padding: 7px 9px; border: 1px solid #e5e4ff; border-radius: 7px; background: #f7f6ff; color: #5148c9; font-size: 12px; }
+.notifyflow-admin__shortcode span { color: #74788a; font-size: 12px; }
+.notifyflow-admin__hint { margin: 12px 0 0; padding: 12px; border-radius: 9px; background: #f7f8fc; color: #717589; font-size: 11px; line-height: 1.65; }
+.notifyflow-admin__help-card ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.notifyflow-admin__help-card li { position: relative; margin: 0; padding-left: 23px; color: #6e7285; font-size: 12px; line-height: 1.65; }
+.notifyflow-admin__help-card li:before { position: absolute; top: 1px; left: 0; color: #635bff; font-weight: 800; content: "✓"; }
+.notifyflow-admin__savebar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 20px; border: 1px solid #e5e7ef; border-radius: 13px; background: #fff; box-shadow: 0 4px 16px rgba(30,33,65,.025); }
+.notifyflow-admin__savebar > span { color: #777b8d; font-size: 12px; line-height: 1.5; }
+.notifyflow-admin__save-button.button.button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 0 17px; border: 1px solid #5c53ed; border-radius: 8px; background: #635bff; box-shadow: 0 4px 10px rgba(99,91,255,.18); font-size: 13px; font-weight: 650; }
+.notifyflow-admin__save-button.button.button-primary:hover { border-color: #4e45dc; background: #5148e8; }
+.notifyflow-admin__save-button .dashicons { width: 16px; height: 16px; font-size: 16px; }
+.notifyflow-admin .notice { margin: 0 0 18px; }
+@media (max-width: 1100px) { .notifyflow-admin__form { grid-template-columns: minmax(0, 1fr); } .notifyflow-admin__sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 782px) { .notifyflow-admin { margin-right: 10px; } .notifyflow-admin__hero { padding: 24px 20px; border-radius: 13px; } .notifyflow-admin__hero-mark { flex-basis: 60px; width: 60px; height: 60px; border-radius: 18px; } .notifyflow-admin__hero-mark .dashicons { width: 30px; height: 30px; font-size: 30px; } .notifyflow-admin__stats { grid-template-columns: 1fr; gap: 10px; } .notifyflow-admin__stat-card { padding: 15px; } .notifyflow-admin__sidebar { grid-template-columns: 1fr; } .notifyflow-admin__card { padding: 19px; } .notifyflow-admin__savebar { align-items: stretch; flex-direction: column; } .notifyflow-admin__save-button.button.button-primary { width: 100%; min-height: 44px; } }
+@media (max-width: 480px) { .notifyflow-admin__hero-mark { display: none; } .notifyflow-admin__hero h1 { font-size: 27px; } .notifyflow-admin__toggle { gap: 12px; } .notifyflow-admin__toggle-copy small { max-width: 230px; } }
