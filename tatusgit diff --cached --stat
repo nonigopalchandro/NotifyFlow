@@ -1,0 +1,25 @@
+warning: in the working copy of 'LICENSE.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/notifyflow-admin.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/notifyflow.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/notifyflow.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-comments.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-database.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-follows.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-frontend.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-privacy.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-rest-api.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'includes/traits/trait-settings.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'languages/notifyflow.pot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'notifyflow.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'readme.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'uninstall.php', LF will be replaced by CRLF the next time Git touches it
+ includes/traits/trait-comments.php |   4 [32m+[m[31m-[m
+ includes/traits/trait-follows.php  |  57 [32m+++++++[m[31m----[m
+ includes/traits/trait-frontend.php |   4 [32m+[m
+ includes/traits/trait-privacy.php  |  30 [32m+++++[m[31m-[m
+ includes/traits/trait-rest-api.php | 190 [32m+++++++++++++++++++++++++++++++[m[31m------[m
+ includes/traits/trait-settings.php |   8 [32m+[m[31m-[m
+ notifyflow.php                     |   2 [32m+[m[31m-[m
+ readme.txt                         | 101 [32m+++++++++++[m[31m---------[m
+ uninstall.php                      |  13 [32m+[m[31m--[m
+ 9 files changed, 303 insertions(+), 106 deletions(-)

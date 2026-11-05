@@ -102,11 +102,13 @@ trait NotifyFlow_Comments_Trait {
 		$preference_key = in_array( $type, array( 'comment', 'reply', 'mention', 'reaction_like', 'follow_author', 'follow_topic', 'custom' ), true ) ? $type : 'comment';
 		if ( empty( $prefs[ $preference_key ] ) ) { return false; }
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- This insert targets NotifyFlow's custom table and must be written immediately.
 		$inserted = $wpdb->query(
 			$wpdb->prepare(
-				'INSERT IGNORE INTO ' . self::table_name() . '
+				'INSERT IGNORE INTO %i
 				(recipient_user_id, actor_user_id, notification_type, object_id, post_id, created_at, read_at)
 				VALUES (%d, %d, %s, %d, %d, %s, NULL)',
+				self::table_name(),
 				absint( $recipient_user_id ),
 				absint( $actor_user_id ),
 				sanitize_key( $type ),

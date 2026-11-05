@@ -6,7 +6,7 @@
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Author:      Noni Gopal Chandro
- * Author URI:  https://codecanyon.net/user/noni_gopal_chandro/portfolio
+ * Author URI:  https://profiles.wordpress.org/devecity/
  * Text Domain: notifyflow
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html

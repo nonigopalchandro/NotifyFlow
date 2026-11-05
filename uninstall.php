@@ -7,22 +7,23 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-$settings = get_option( 'notifyflow_settings', array() );
-if ( ! is_array( $settings ) || empty( $settings['delete_data_on_uninstall'] ) ) {
+$notifyflow_settings = get_option( 'notifyflow_settings', array() );
+if ( ! is_array( $notifyflow_settings ) || empty( $notifyflow_settings['delete_data_on_uninstall'] ) ) {
 	return;
 }
 
 global $wpdb;
 wp_clear_scheduled_hook( 'notifyflow_daily_cleanup' );
-$tables = array(
+$notifyflow_tables = array(
 	$wpdb->prefix . 'notifyflow_notifications',
 	$wpdb->prefix . 'notifyflow_reactions',
 	$wpdb->prefix . 'notifyflow_follows',
 );
-foreach ( $tables as $table ) {
+foreach ( $notifyflow_tables as $notifyflow_table ) {
 	// Table names are constructed only from the active WordPress table prefix and fixed plugin suffixes.
-	$wpdb->query( "DROP TABLE IF EXISTS `{$table}`" );
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange -- Drop only NotifyFlow tables after an administrator explicitly enabled uninstall cleanup.
+	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $notifyflow_table ) );
 }
-$wpdb->delete( $wpdb->usermeta, array( 'meta_key' => 'notifyflow_preferences' ), array( '%s' ) );
+delete_metadata( 'user', 0, 'notifyflow_preferences', '', true );
 delete_option( 'notifyflow_settings' );
 delete_option( 'notifyflow_db_version' );

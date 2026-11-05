@@ -1,0 +1,11 @@
+ includes/traits/trait-comments.php |   4 [32m+[m[31m-[m
+ includes/traits/trait-follows.php  |  57 [32m+++++++[m[31m----[m
+ includes/traits/trait-frontend.php |   4 [32m+[m
+ includes/traits/trait-privacy.php  |  30 [32m+++++[m[31m-[m
+ includes/traits/trait-rest-api.php | 190 [32m+++++++++++++++++++++++++++++++[m[31m------[m
+ includes/traits/trait-settings.php |   8 [32m+[m[31m-[m
+ notifyflow.php                     |   2 [32m+[m[31m-[m
+ readme.txt                         | 101 [32m+++++++++++[m[31m---------[m
+ tatusgit diff --cached --stat      |  25 [32m+++++[m
+ uninstall.php                      |  13 [32m+[m[31m--[m
+ 10 files changed, 328 insertions(+), 106 deletions(-)

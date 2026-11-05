@@ -48,7 +48,8 @@ trait NotifyFlow_Follows_Trait {
 		$recipients = array();
 
 		// Author followers are one independent recipient source.
-		$author_ids = $wpdb->get_col( $wpdb->prepare( "SELECT follower_user_id FROM {$table} WHERE target_type = %s AND target_id = %d", 'user', $author_id ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Follow data is stored in a custom table and must be current when a post is published.
+		$author_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT follower_user_id FROM %i WHERE target_type = %s AND target_id = %d', $table, 'user', $author_id ) );
 		foreach ( (array) $author_ids as $recipient_id ) {
 			$recipient_id = absint( $recipient_id );
 			if ( $recipient_id ) { $recipients[ $recipient_id ] = 'follow_author'; }
@@ -59,11 +60,20 @@ trait NotifyFlow_Follows_Trait {
 		if ( ! is_wp_error( $category_ids ) && ! empty( $category_ids ) ) {
 			$category_ids = array_values( array_unique( array_filter( array_map( 'absint', $category_ids ) ) ) );
 			if ( $category_ids ) {
-				$placeholders = implode( ',', array_fill( 0, count( $category_ids ), '%d' ) );
-				$sql = $wpdb->prepare( "SELECT DISTINCT follower_user_id FROM {$table} WHERE target_type = %s AND target_id IN ({$placeholders})", array_merge( array( 'category' ), $category_ids ) );
-				foreach ( (array) $wpdb->get_col( $sql ) as $recipient_id ) {
-					$recipient_id = absint( $recipient_id );
-					if ( $recipient_id && ! isset( $recipients[ $recipient_id ] ) ) { $recipients[ $recipient_id ] = 'follow_topic'; }
+				foreach ( $category_ids as $category_id ) {
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Read the current followers of this published post's category.
+					$category_followers = $wpdb->get_col(
+						$wpdb->prepare(
+							'SELECT follower_user_id FROM %i WHERE target_type = %s AND target_id = %d',
+							$table,
+							'category',
+							$category_id
+						)
+					);
+					foreach ( (array) $category_followers as $recipient_id ) {
+						$recipient_id = absint( $recipient_id );
+						if ( $recipient_id && ! isset( $recipients[ $recipient_id ] ) ) { $recipients[ $recipient_id ] = 'follow_topic'; }
+					}
 				}
 			}
 		}
@@ -72,11 +82,20 @@ trait NotifyFlow_Follows_Trait {
 		if ( ! is_wp_error( $tag_ids ) && ! empty( $tag_ids ) ) {
 			$tag_ids = array_values( array_unique( array_filter( array_map( 'absint', $tag_ids ) ) ) );
 			if ( $tag_ids ) {
-				$placeholders = implode( ',', array_fill( 0, count( $tag_ids ), '%d' ) );
-				$sql = $wpdb->prepare( "SELECT DISTINCT follower_user_id FROM {$table} WHERE target_type = %s AND target_id IN ({$placeholders})", array_merge( array( 'tag' ), $tag_ids ) );
-				foreach ( (array) $wpdb->get_col( $sql ) as $recipient_id ) {
-					$recipient_id = absint( $recipient_id );
-					if ( $recipient_id && ! isset( $recipients[ $recipient_id ] ) ) { $recipients[ $recipient_id ] = 'follow_topic'; }
+				foreach ( $tag_ids as $tag_id ) {
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Read the current followers of this published post's tag.
+					$tag_followers = $wpdb->get_col(
+						$wpdb->prepare(
+							'SELECT follower_user_id FROM %i WHERE target_type = %s AND target_id = %d',
+							$table,
+							'tag',
+							$tag_id
+						)
+					);
+					foreach ( (array) $tag_followers as $recipient_id ) {
+						$recipient_id = absint( $recipient_id );
+						if ( $recipient_id && ! isset( $recipients[ $recipient_id ] ) ) { $recipients[ $recipient_id ] = 'follow_topic'; }
+					}
 				}
 			}
 		}
@@ -95,8 +114,10 @@ trait NotifyFlow_Follows_Trait {
 		if ( ! $post_id || 'publish' !== get_post_status( $post_id ) ) { return ''; }
 		global $wpdb;
 		$table = $wpdb->prefix . 'notifyflow_reactions';
-		$count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE post_id = %d", $post_id ) ) );
-		$mine = $wpdb->get_var( $wpdb->prepare( "SELECT reaction_type FROM {$table} WHERE post_id = %d AND user_id = %d", $post_id, get_current_user_id() ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Reaction counts are live data in a custom table.
+		$count = absint( $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE post_id = %d', $table, $post_id ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The current user's reaction must reflect the latest custom-table state.
+		$mine = $wpdb->get_var( $wpdb->prepare( 'SELECT reaction_type FROM %i WHERE post_id = %d AND user_id = %d', $table, $post_id, get_current_user_id() ) );
 		wp_enqueue_script( 'notifyflow-frontend' ); wp_enqueue_style( 'notifyflow-frontend' );
 		$out = '<div class="notifyflow-reactions" data-nf-reaction data-post-id="' . esc_attr( $post_id ) . '">';
 		foreach ( array( 'like' => array( '👍', __( 'Like', 'notifyflow' ) ), 'haha' => array( '😂', __( 'Haha', 'notifyflow' ) ), 'angry' => array( '😡', __( 'Angry', 'notifyflow' ) ), 'cry' => array( '😢', __( 'Cry', 'notifyflow' ) ), 'care' => array( '🥰', __( 'Care', 'notifyflow' ) ) ) as $reaction => $details ) { $out .= '<button type="button" data-reaction="' . esc_attr( $reaction ) . '" data-reaction-label="' . esc_attr( $details[1] ) . '" aria-label="' . esc_attr( $details[1] ) . '" aria-pressed="' . ( $mine === $reaction ? 'true' : 'false' ) . '"><span class="notifyflow-reaction-emoji" aria-hidden="true">' . esc_html( $details[0] ) . '</span><span class="notifyflow-reaction-label">' . esc_html( $details[1] ) . '</span></button> '; }
@@ -111,7 +132,8 @@ trait NotifyFlow_Follows_Trait {
 		if ( ! $post || absint( $post->post_author ) === get_current_user_id() ) { return ''; }
 		global $wpdb;
 		$table = $wpdb->prefix . 'notifyflow_follows';
-		$following = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE follower_user_id = %d AND target_type = %s AND target_id = %d LIMIT 1", get_current_user_id(), 'user', absint( $post->post_author ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Follow state is user-specific and must reflect the latest custom-table state.
+		$following = (bool) $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM %i WHERE follower_user_id = %d AND target_type = %s AND target_id = %d LIMIT 1', $table, get_current_user_id(), 'user', absint( $post->post_author ) ) );
 		$settings = self::settings();
 		wp_enqueue_script( 'notifyflow-frontend' ); wp_enqueue_style( 'notifyflow-frontend' );
 		return '<div class="notifyflow-follow notifyflow-follow--author" data-nf-follow style="--nf-accent:' . esc_attr( $settings['accent_color'] ) . '"><button type="button" data-follow-type="user" data-follow-id="' . esc_attr( absint( $post->post_author ) ) . '" data-follow-label="' . esc_attr__( 'Follow', 'notifyflow' ) . '" data-following-label="' . esc_attr__( 'Following', 'notifyflow' ) . '" aria-pressed="' . ( $following ? 'true' : 'false' ) . '">' . ( $following ? esc_html__( 'Following', 'notifyflow' ) : esc_html__( 'Follow', 'notifyflow' ) ) . '</button><span data-follow-status aria-live="polite"></span></div>';
@@ -131,8 +153,11 @@ trait NotifyFlow_Follows_Trait {
 		$out = '<div class="notifyflow-follow notifyflow-follow--categories" data-nf-follow style="--nf-accent:' . esc_attr( $settings['accent_color'] ) . '">';
 		foreach ( $terms as $term ) {
 			$term_id = absint( $term->term_id );
-			$following = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE follower_user_id = %d AND target_type = %s AND target_id = %d LIMIT 1", $user_id, 'category', $term_id ) );
-			$out .= '<span class="notifyflow-follow__category"><span class="notifyflow-follow__category-name">' . esc_html( $term->name ) . '</span><button type="button" data-follow-type="category" data-follow-id="' . esc_attr( $term_id ) . '" data-follow-label="' . esc_attr__( 'Follow', 'notifyflow' ) . '" data-following-label="' . esc_attr__( 'Following', 'notifyflow' ) . '" aria-label="' . esc_attr( sprintf( __( 'Follow category: %s', 'notifyflow' ), $term->name ) ) . '" aria-pressed="' . ( $following ? 'true' : 'false' ) . '">' . ( $following ? esc_html__( 'Following', 'notifyflow' ) : esc_html__( 'Follow', 'notifyflow' ) ) . '</button></span>';
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Category follow state is user-specific and must reflect the latest custom-table state.
+			$following = (bool) $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM %i WHERE follower_user_id = %d AND target_type = %s AND target_id = %d LIMIT 1', $table, $user_id, 'category', $term_id ) );
+			// translators: %s: Name of the category to follow.
+			$category_label = sprintf( __( 'Follow category: %s', 'notifyflow' ), $term->name );
+			$out .= '<span class="notifyflow-follow__category"><span class="notifyflow-follow__category-name">' . esc_html( $term->name ) . '</span><button type="button" data-follow-type="category" data-follow-id="' . esc_attr( $term_id ) . '" data-follow-label="' . esc_attr__( 'Follow', 'notifyflow' ) . '" data-following-label="' . esc_attr__( 'Following', 'notifyflow' ) . '" aria-label="' . esc_attr( $category_label ) . '" aria-pressed="' . ( $following ? 'true' : 'false' ) . '">' . ( $following ? esc_html__( 'Following', 'notifyflow' ) : esc_html__( 'Follow', 'notifyflow' ) ) . '</button></span>';
 		}
 		return $out . '<span data-follow-status aria-live="polite"></span></div>';
 	}

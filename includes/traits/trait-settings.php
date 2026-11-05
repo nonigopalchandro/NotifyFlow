@@ -53,7 +53,8 @@ trait NotifyFlow_Settings_Trait {
 		if ( $days < 1 ) {
 			return;
 		}
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . self::table_name() . ' WHERE created_at < %s LIMIT 5000', gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS * $days ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Retention cleanup is a bounded write to NotifyFlow's custom notifications table.
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE created_at < %s LIMIT 5000', self::table_name(), gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS * $days ) ) );
 	}
 
 	public static function register_admin_page() {
@@ -86,12 +87,15 @@ trait NotifyFlow_Settings_Trait {
 
 		global $wpdb;
 		$table_name = self::table_name();
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Verify the custom table's current schema state before displaying its status.
 		$table_exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) ) ) === $table_name;
 		$count = 0;
 		if ( $table_exists ) {
-			$count = absint( $wpdb->get_var( "SELECT COUNT(*) FROM `{$table_name}`" ) ); // Table name is derived from the trusted WP prefix and plugin suffix.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Display the current count from NotifyFlow's custom table.
+			$count = absint( $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table_name ) ) );
 		}
 		$settings = self::settings();
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This sanitized read-only query flag controls only a success notice and makes no state change.
 		$saved = isset( $_GET['notifyflow_saved'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['notifyflow_saved'] ) );
 		?>
 		<div class="wrap notifyflow-admin">

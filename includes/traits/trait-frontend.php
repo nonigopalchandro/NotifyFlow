@@ -54,10 +54,14 @@ trait NotifyFlow_Frontend_Trait {
 				'error'       => __( 'Could not load notifications. Please try again.', 'notifyflow' ),
 				'viewPost'    => __( 'Open discussion', 'notifyflow' ),
 				'close'       => __( 'Close notifications', 'notifyflow' ),
+				/* translators: %d: Number of unread notifications. */
 				'unreadCount' => __( '%d unread', 'notifyflow' ),
 				'justNow' => __( 'Just now', 'notifyflow' ),
+				/* translators: %d: Number of minutes elapsed. */
 				'minutesAgo' => __( '%d m ago', 'notifyflow' ),
+				/* translators: %d: Number of hours elapsed. */
 				'hoursAgo' => __( '%d h ago', 'notifyflow' ),
+				/* translators: %d: Number of days elapsed. */
 				'daysAgo' => __( '%d d ago', 'notifyflow' ),
 				'newActivity' => __( 'New activity', 'notifyflow' ),
 				'couldNotLoad' => __( 'Could not load notifications. Please try again.', 'notifyflow' ),
